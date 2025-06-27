@@ -1,0 +1,37 @@
+# Compiled output
+# Abaikan semua direktori build dan folder captures di seluruh proyek
+build/
+captures/
+*.iml
+
+# Gradle
+.gradle/
+local.properties
+
+# IntelliJ / Android Studio
+# File, cache, dan shelf khusus pengguna
+/.idea/caches/
+/.idea/libraries/
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+/.idea/compiler.xml
+/.idea/misc.xml
+/.idea/deploymentTargetSelector.xml
+/.idea/migrations.xml
+/.idea/shelf/
+/.idea/runConfigurations.xml
+/.idea/inspectionProfiles/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Native development
+.externalNativeBuild/
+.cxx/
+
+# Node.js specific for import-resep
+/import-resep/node_modules/
+/import-resep/.env

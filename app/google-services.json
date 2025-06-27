@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "889972324299",
+    "project_id": "rasarumah-e7365",
+    "storage_bucket": "rasarumah-e7365.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:889972324299:android:3e363f1586cdaed84fe84e",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFfgHQT96OmE3VKhokkzi54GfBMYGLRUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
