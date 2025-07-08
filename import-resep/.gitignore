@@ -1,0 +1,5 @@
+# Firebase/Google Cloud credentials
+serviceAccountKey.json
+
+# Environment variables
+.env
