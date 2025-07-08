@@ -35,3 +35,19 @@ Thumbs.db
 # Node.js specific for import-resep
 /import-resep/node_modules/
 /import-resep/.env
+
+# Credential files
+*.key
+*.pem
+*.p12
+*.jks
+.env
+config.json
+credentials.json
+secrets.yaml
+secrets.yml
+api_keys.xml
+google-services.json
+
+# Flutter SDK
+flutter/
