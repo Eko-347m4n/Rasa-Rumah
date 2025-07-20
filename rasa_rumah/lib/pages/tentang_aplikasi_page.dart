@@ -17,7 +17,7 @@ class TentangAplikasiPage extends StatelessWidget {
           children: [
             // Logo Aplikasi
             Image.asset(
-              'assets/logo_rasa_rumah.png', // Ganti dengan nama file gambar logomu
+              'assets/logo.png', // Ganti dengan nama file gambar logomu
               width: 100,
               height: 100,
             ),

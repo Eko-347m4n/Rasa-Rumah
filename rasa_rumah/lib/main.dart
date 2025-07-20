@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:rasa_rumah/pages/all_recipes_page.dart';
 import 'package:rasa_rumah/pages/category_recipes_page.dart';
 import 'package:rasa_rumah/pages/drawer_menu.dart';
 
 import 'package:rasa_rumah/pages/kategori_resep_screen.dart';
 import 'package:rasa_rumah/pages/rating_aplikasi_page.dart';
-import 'package:rasa_rumah/pages/resep_ayam_page.dart';
+
 import 'package:rasa_rumah/pages/resep_favorit_page.dart';
 import 'package:rasa_rumah/pages/splash_screen.dart';
 import 'package:rasa_rumah/pages/tentang_aplikasi_page.dart';
-import 'package:rasa_rumah/pages/themed_recipes_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -39,12 +41,12 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => SplashScreen(),
-        '/home': (context) => MyHomePage(initialIndex: ModalRoute.of(context)?.settings.arguments as int? ?? 0),
+        '/home': (context) => MyHomePage(
+          initialIndex: ModalRoute.of(context)?.settings.arguments as int? ?? 0,
+        ),
         '/rating': (context) => RatingPage(),
         '/tentang': (context) => TentangAplikasiPage(),
         '/kategori-resep': (context) => KategoriResepScreen(),
-        '/resep-ayam': (context) => ResepAyamPage(),
-        
       },
     );
   }
@@ -67,11 +69,10 @@ class _MyHomePageState extends State<MyHomePage> {
     _selectedIndex = widget.initialIndex;
   }
 
-  static const List<Widget> _widgetOptions = <Widget>[
+  static final List<Widget> _widgetOptions = <Widget>[
     AllRecipesPage(),
-    ThemedRecipesPage(),
-    CategoryRecipesPage(),
-    FavoriteRecipesPage(),
+    const CategoryRecipesPage(),
+    const FavoriteRecipesPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -83,23 +84,15 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Rasa Rumah'),
-      ),
+      appBar: AppBar(title: const Text('Rasa Rumah')),
       drawer: DrawerMenu(),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.food_bank),
             label: 'Semua Resep',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.style),
-            label: 'Resep Tematik',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.category),

@@ -1,32 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:rasa_rumah/pages/themed_recipes_page.dart';
 
 class KategoriResepScreen extends StatelessWidget {
   const KategoriResepScreen({super.key});
   final List<Map<String, String>> kategori = const [
-    {"nama": "Ayam", "gambar": "assets/kategori/ayam.jpg"},
-    {"nama": "Daging", "gambar": "assets/kategori/daging.jpg"},
-    {"nama": "Bebek", "gambar": "assets/kategori/bebek.jpg"},
-    {"nama": "Cumi", "gambar": "assets/kategori/cumi.jpg"},
-    {"nama": "Ikan", "gambar": "assets/kategori/ikan.jpg"},
-    {"nama": "Jamur", "gambar": "assets/kategori/jamur.jpg"},
-    {"nama": "Buah", "gambar": "assets/kategori/buah.jpg"},
-    {"nama": "Sayur", "gambar": "assets/kategori/sayur.jpg"},
-    {"nama": "Sambal", "gambar": "assets/kategori/sambal.jpg"},
-    {"nama": "Mie", "gambar": "assets/kategori/mie.jpg"},
+    {"nama": "Ayam", "gambar": "assets/kategori/ayam.png"},
+    {"nama": "Ikan", "gambar": "assets/kategori/ikan.png"},
+    {"nama": "Kambing", "gambar": "assets/kategori/kambing.png"},
+    {"nama": "Sapi", "gambar": "assets/kategori/sapi.png"},
+    {"nama": "Tahu", "gambar": "assets/kategori/tahu.png"},
+    {"nama": "Telur", "gambar": "assets/kategori/telur.png"},
+    {"nama": "Tempe", "gambar": "assets/kategori/tempe.png"},
+    {"nama": "Udang", "gambar": "assets/kategori/udang.png"},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Kategori Resep"),
-        leading: BackButton(),
+        title: const Text("Kategori Resep"),
+        leading: const BackButton(),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: GridView.builder(
           itemCount: kategori.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, // dua kolom
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
@@ -35,7 +34,12 @@ class KategoriResepScreen extends StatelessWidget {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-                // Navigasi ke daftar resep berdasarkan kategori
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ThemedRecipesPage(category: kategori[index]["nama"]!.toLowerCase()),
+                  ),
+                );
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -65,7 +69,7 @@ class KategoriResepScreen extends StatelessWidget {
                       child: Center(
                         child: Text(
                           kategori[index]["nama"]!,
-                          style: TextStyle(fontSize: 16),
+                          style: const TextStyle(fontSize: 16),
                         ),
                       ),
                     ),

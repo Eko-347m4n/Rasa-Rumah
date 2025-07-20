@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:rasa_rumah/pages/themed_recipes_page.dart';
 
 class CategoryRecipesPage extends StatelessWidget {
   const CategoryRecipesPage({super.key});
 
   final List<String> _categories = const [
-    'Masakan Indonesia',
-    'Masakan Asia',
-    'Masakan Barat',
-    'Minuman',
-    'Kue & Roti',
-    'Makanan Penutup',
+    'ayam',
+    'ikan',
+    'kambing',
+    'sapi',
+    'tahu',
+    'telur',
+    'tempe',
+    'udang',
   ];
 
   @override
@@ -24,9 +27,11 @@ class CategoryRecipesPage extends StatelessWidget {
             title: Text(category, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
-              // TODO: Implement navigation to a page showing recipes for this category
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Anda memilih kategori: $category')),
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ThemedRecipesPage(category: category),
+                ),
               );
             },
           ),

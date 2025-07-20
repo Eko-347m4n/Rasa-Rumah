@@ -1,22 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rasa_rumah/widgets/recipe_card.dart';
 import 'package:rasa_rumah/widgets/download_recipe_dialog.dart';
 
-class FavoriteRecipesPage extends StatelessWidget {
+class FavoriteRecipesPage extends StatefulWidget {
   const FavoriteRecipesPage({super.key});
 
-  final List<Map<String, String>> _favoriteRecipes = const [
-    {
-      'title': 'Soto Ayam',
-      'description': 'Soto ayam kuah kuning yang segar.',
-      'imageUrl': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Soto_Ayam_Lamongan.jpg/1200px-Soto_Ayam_Lamongan.jpg',
-    },
-    {
-      'title': 'Martabak Manis',
-      'description': 'Martabak manis dengan topping cokelat keju.',
-      'imageUrl': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Martabak_Manis.jpg/1200px-Martabak_Manis.jpg',
-    },
-  ];
+  @override
+  State<FavoriteRecipesPage> createState() => _FavoriteRecipesPageState();
+}
+
+class _FavoriteRecipesPageState extends State<FavoriteRecipesPage> {
+  List<Map<String, dynamic>> _favoriteRecipes = [];
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadFavoriteRecipes();
+  }
+
+  Future<void> _loadFavoriteRecipes() async {
+    try {
+      final QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('favorites') // Assuming a 'favorites' collection
+          .get();
+      setState(() {
+        _favoriteRecipes = snapshot.docs
+            .map((doc) => doc.data() as Map<String, dynamic>)
+            .toList();
+        _isLoading = false;
+      });
+    } catch (e) {
+      // TODO: Log error to a logging framework
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   void _showDownloadDialog(BuildContext context, String recipeTitle) {
     showDialog(
@@ -29,19 +50,21 @@ class FavoriteRecipesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: _favoriteRecipes.length,
-      itemBuilder: (context, index) {
-        final recipe = _favoriteRecipes[index];
-        return GestureDetector(
-          onTap: () => _showDownloadDialog(context, recipe['title']!),
-          child: RecipeCard(
-            title: recipe['title']!,
-            description: recipe['description']!,
-            imageUrl: recipe['imageUrl']!,
-          ),
-        );
-      },
-    );
+    return _isLoading
+        ? const Center(child: CircularProgressIndicator())
+        : _favoriteRecipes.isEmpty
+            ? const Center(child: Text('Tidak ada resep favorit.'))
+            : ListView.builder(
+                itemCount: _favoriteRecipes.length,
+                itemBuilder: (context, index) {
+                  final recipe = _favoriteRecipes[index];
+                  return GestureDetector(
+                    onTap: () => _showDownloadDialog(context, recipe['judul']!),
+                    child: RecipeCard(
+                      recipe: recipe,
+                    ),
+                  );
+                },
+              );
   }
 }
