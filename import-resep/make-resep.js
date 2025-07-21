@@ -51,13 +51,6 @@ function transformRecipes(csvPath = 'Indonesian_Food_Recipes.csv', jsonPath = 'r
           .filter(step => step.length > 0);
       }
 
-      // Process jumlahSuka (Loves)
-      let jumlahSuka = 0;
-      if (row['Loves']) {
-        const lovesNum = parseInt(row['Loves'], 10);
-        jumlahSuka = isNaN(lovesNum) ? 0 : lovesNum;
-      }
-
       // Process kategori (Category)
       const kategori = row['Category'] ? row['Category'].trim() : '';
 
