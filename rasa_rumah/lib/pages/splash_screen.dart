@@ -11,7 +11,7 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacementNamed(context, '/home');
     });
   }
@@ -19,10 +19,9 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFDF1E7), // Warna krem
       body: Center(
         child: Image.asset(
-          'assets/logo.png', // Ganti sesuai nama file logo kamu
+          'assets/logo.png',
           width: 150,
           height: 150,
         ),

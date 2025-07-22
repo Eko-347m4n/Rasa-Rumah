@@ -18,14 +18,17 @@ class CategoryRecipesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       itemCount: _categories.length,
       itemBuilder: (context, index) {
         final category = _categories[index];
         return Card(
-          margin: const EdgeInsets.all(8.0),
           child: ListTile(
-            title: Text(category, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            trailing: const Icon(Icons.arrow_forward_ios),
+            title: Text(
+              category[0].toUpperCase() + category.substring(1),
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 18),
+            ),
+            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
             onTap: () {
               Navigator.push(
                 context,

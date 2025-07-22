@@ -10,6 +10,7 @@ import 'package:rasa_rumah/pages/rating_aplikasi_page.dart';
 import 'package:rasa_rumah/pages/resep_favorit_page.dart';
 import 'package:rasa_rumah/pages/splash_screen.dart';
 import 'package:rasa_rumah/pages/tentang_aplikasi_page.dart';
+import 'package:rasa_rumah/theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,20 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Rasa Rumah',
-      theme: ThemeData(
-        primarySwatch: Colors.orange,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.orange[700],
-          centerTitle: true,
-          titleTextStyle: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        scaffoldBackgroundColor: Color(0xFFFDF1E7),
-      ),
+      theme: AppTheme.themeData,
       initialRoute: '/',
       routes: {
         '/': (context) => SplashScreen(),
@@ -104,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: AppTheme.accentColor,
         onTap: _onItemTapped,
       ),
     );

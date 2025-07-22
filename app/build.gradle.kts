@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.rasarumah-e7365"
+    namespace = "com.example.rasarumah_e7365"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.myapplication"
+        applicationId = "com.example.rasarumah_e7365"
         minSdk = 24
         targetSdk = 35
         versionCode = 1

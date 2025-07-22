@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rasa_rumah/pages/recipe_detail_page.dart';
 import 'package:rasa_rumah/widgets/recipe_card.dart';
-import 'package:rasa_rumah/widgets/download_recipe_dialog.dart';
 
 class FavoriteRecipesPage extends StatefulWidget {
   const FavoriteRecipesPage({super.key});
@@ -22,8 +22,10 @@ class _FavoriteRecipesPageState extends State<FavoriteRecipesPage> {
 
   Future<void> _loadFavoriteRecipes() async {
     try {
+      // Placeholder for actual favorite recipes logic
       final QuerySnapshot snapshot = await FirebaseFirestore.instance
-          .collection('favorites') // Assuming a 'favorites' collection
+          .collection('resep')
+          .where('isFavorite', isEqualTo: true) // Assuming a field 'isFavorite'
           .get();
       setState(() {
         _favoriteRecipes = snapshot.docs
@@ -39,30 +41,43 @@ class _FavoriteRecipesPageState extends State<FavoriteRecipesPage> {
     }
   }
 
-  void _showDownloadDialog(BuildContext context, String recipeTitle) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return DownloadRecipeDialog(recipeTitle: recipeTitle);
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return _isLoading
         ? const Center(child: CircularProgressIndicator())
         : _favoriteRecipes.isEmpty
-            ? const Center(child: Text('Tidak ada resep favorit.'))
-            : ListView.builder(
+            ? Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Text(
+                    'Anda belum memiliki resep favorit. Tambahkan beberapa!',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+              )
+            : GridView.builder(
+                padding: const EdgeInsets.all(10.0),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10.0,
+                  mainAxisSpacing: 10.0,
+                  childAspectRatio: 0.75,
+                ),
                 itemCount: _favoriteRecipes.length,
                 itemBuilder: (context, index) {
                   final recipe = _favoriteRecipes[index];
                   return GestureDetector(
-                    onTap: () => _showDownloadDialog(context, recipe['judul']!),
-                    child: RecipeCard(
-                      recipe: recipe,
-                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              RecipeDetailPage(recipe: recipe),
+                        ),
+                      );
+                    },
+                    child: RecipeCard(recipe: recipe),
                   );
                 },
               );

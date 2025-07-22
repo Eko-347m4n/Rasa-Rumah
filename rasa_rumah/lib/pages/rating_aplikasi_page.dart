@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart'; // Tambahkan ini di pubspec.yaml
+import 'package:url_launcher/url_launcher.dart';
+
+// Moved the launch logic to a top-level function
+Future<void> _launchURL(BuildContext context) async {
+  final Uri url = Uri.parse('https://play.google.com/store/apps/details?id=com.example.yourapp');
+  if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+    // Show a snackbar or dialog on failure
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Could not launch ${url.toString()}'),
+        ),
+      );
+    }
+  }
+}
 
 class RatingPage extends StatelessWidget {
   const RatingPage({super.key});
-  final String playStoreUrl =
-      'https://play.google.com/store/apps/details?id=com.example.yourapp'; // Ganti dengan link Play Store asli
-
-  Future<void> _launchURL() async {
-    if (await canLaunchUrl(Uri.parse(playStoreUrl))) {
-      await launchUrl(Uri.parse(playStoreUrl));
-    } else {
-      throw 'Could not launch $playStoreUrl';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Rating Aplikasi"),
-        leading: BackButton(),
+        title: const Text("Rating Aplikasi"),
       ),
       body: Center(
         child: Padding(
@@ -30,16 +34,12 @@ class RatingPage extends StatelessWidget {
               Text(
                 "Kami menghargai ulasan Anda!\nBeri rating dan ulasan Anda di Play Store",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16),
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               ElevatedButton(
-                onPressed: _launchURL,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange,
-                  foregroundColor: Colors.white,
-                ),
-                child: Text("Rate di Play Store"),
+                onPressed: () => _launchURL(context), // Call the top-level function
+                child: const Text("Rate di Play Store"),
               ),
             ],
           ),

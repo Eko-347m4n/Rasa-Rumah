@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rasa_rumah/theme/app_theme.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({super.key});
@@ -6,18 +7,18 @@ class DrawerMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        color: Color(0xFFFDF1E7),
+        color: AppTheme.backgroundColor,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-              decoration: BoxDecoration(color: Colors.orange[700]),
+              decoration: const BoxDecoration(color: AppTheme.primaryColor),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset('assets/logo.png', width: 60, height: 60),
-                  SizedBox(height: 8),
-                  Text(
+                  const SizedBox(height: 8),
+                  const Text(
                     'Rasa Rumah',
                     style: TextStyle(
                       color: Colors.white,
@@ -29,41 +30,41 @@ class DrawerMenu extends StatelessWidget {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.menu_book),
-              title: Text('Semua Resep'),
+              leading: const Icon(Icons.menu_book),
+              title: const Text('Semua Resep'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/home', arguments: 0);
               },
             ),
             ListTile(
-              leading: Icon(Icons.category),
-              title: Text('Kategori Resep'),
+              leading: const Icon(Icons.category),
+              title: const Text('Kategori Resep'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/kategori-resep');
               },
             ),
             ListTile(
-              leading: Icon(Icons.favorite),
-              title: Text('Resep Favorit'),
+              leading: const Icon(Icons.favorite),
+              title: const Text('Resep Favorit'),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, '/home', arguments: 3);
+                Navigator.pushNamed(context, '/home', arguments: 2); // Corrected index
               },
             ),
-            Divider(thickness: 1),
+            const Divider(thickness: 1),
             ListTile(
-              leading: Icon(Icons.star),
-              title: Text('Rating Aplikasi'),
+              leading: const Icon(Icons.star),
+              title: const Text('Rating Aplikasi'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/rating');
               },
             ),
             ListTile(
-              leading: Icon(Icons.info),
-              title: Text('Tentang Aplikasi'),
+              leading: const Icon(Icons.info),
+              title: const Text('Tentang Aplikasi'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/tentang');
